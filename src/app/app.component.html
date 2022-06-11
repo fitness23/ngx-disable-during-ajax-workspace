@@ -1,0 +1,24 @@
+<p>
+  Press the button below to start an async call. You'll see it becoming disabled during async call data transfer:
+</p>
+<button type="button" ngx-disable-during-ajax (click)="getWaterPokemon()">Press me for async call</button>
+
+
+
+<div *ngIf="(items$ | async)?.length !== 0; else loading">
+<p>Here are all the water pokemon:</p>
+  <ul>
+    <li *ngFor="let item of items$ | async">{{item.name | titlecase}}</li>
+  </ul>
+</div>
+
+<ng-template #loading>
+<div style="margin-top: 20px;">Press the button above.</div>
+</ng-template>
+
+<hr />
+
+<div style="margin-top: 40px;">
+  <p>This button will also get disabled regardless on whether it belongs to a particular form or not. Just so long as it has the 'disableDuringAjax' directive.</p>
+<button type="button" ngx-disable-during-ajax>This button is irrelevant</button>
+</div>
