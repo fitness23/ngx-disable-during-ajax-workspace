@@ -1,27 +1,74 @@
-# DisableDuringAjaxWorkspace
+# ngx-disable-during-ajax
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
+This is a library to disable any element in your application using the native disabled attribute whilst ajax data calls are in transit.
 
-## Development server
+Stackblitz Example = https://stackblitz.com/edit/angular-ivy-fmn28n
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Description
 
-## Code scaffolding
+Sometimes we may want to disable buttons (or other elements) in our application whilst ajax calls are in transit. For example the user may have filled out an order form and we wish to prevent them from accidentally pressing the submit button twice. This library listens for all the incoming and outgoing requests and enables the button once all ajax calls have completed.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Get Started
 
-## Build
+*Step 1*: install `ngx-disable-during-ajax`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+npm i ngx-disable-during-ajax
+```
 
-## Running unit tests
+*Step 2*: Import `DisableDuringAjaxModule` into your app module, eg.:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
-## Running end-to-end tests
+import { DisableDuringAjaxModule } from 'ngx-disable-during-ajax';
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    DisableDuringAjaxModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  ],
+})
+export class AppModule { }
+```
 
-## Further help
+## Usage
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+*Step 3*: Place directive on buttons you wish to disable when ajax calls are made
+
+```bash
+<button type="button" ngx-disable-during-ajax></button>
+```
+
+Should you have buttons which are included in a form and need validation to be considered add the `[formValid]` tag and send the instance of the form.
+
+```bash
+<button type="button" ngx-disable-during-ajax [formValid]="myForm"></button>
+```
+
+You may have a situation where you want your button to be disabled for all ajax calls with the exception of a few. In this case, simply add a `"NgxDisableDuringAjaxSkip", "true"`, header to those http.service calls.
+
+```bash
+getWaterPokemon(): Observable<any[]> {
+        return this.http
+            .get<any[]>(`${this.getApi()}/type/5`,  { responseType: 'json', headers: new HttpHeaders().set("NgxDisableDuringAjaxSkip", "true") })
+            .pipe(
+              catchError((err) => {
+                return this.errorHandler(err);
+              }),
+              map((clients: any) =>
+                clients.pokemon.map((client: any) => client.pokemon)
+              )
+            );
+      }
+```
