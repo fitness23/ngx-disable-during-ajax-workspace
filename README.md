@@ -6,7 +6,7 @@ Stackblitz Example = https://stackblitz.com/edit/angular-ivy-fmn28n
 
 ## Description
 
-Sometimes we may want to disable buttons (or other elements) in our application whilst ajax calls are in transit. For example the user may have filled out an order form and we wish to prevent them from accidentally pressing the submit button twice. This library listens for all the incoming and outgoing requests and enables the button once all ajax calls have completed.
+Sometimes we may want to disable buttons (or other elements) in our application whilst ajax calls are in transit. For example the user may have filled out an order form and we wish to prevent them from accidentally pressing the submit button twice. This library listens for all the incoming and outgoing requests and re-enables the button once all ajax calls have completed.
 
 ## Get Started
 
@@ -47,13 +47,13 @@ export class AppModule { }
 *Step 3*: Place directive on buttons you wish to disable when ajax calls are made
 
 ```bash
-<button type="button" ngx-disable-during-ajax></button>
+<button type="button" ngx-disable-during-ajax>My button</button>
 ```
 
 Should you have buttons which are included in a form and need validation to be considered add the `[formValid]` tag and send the instance of the form.
 
 ```bash
-<button type="button" ngx-disable-during-ajax [formValid]="myForm"></button>
+<button type="button" ngx-disable-during-ajax [formValid]="myForm">My button</button>
 ```
 
 You may have a situation where you want your button to be disabled for all ajax calls with the exception of a few. In this case, simply add a `"NgxDisableDuringAjaxSkip", "true"`, header to those http.service calls.
