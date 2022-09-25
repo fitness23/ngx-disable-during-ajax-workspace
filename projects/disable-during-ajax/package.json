@@ -1,6 +1,6 @@
 {
   "name": "ngx-disable-during-ajax",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "This is a library to disable any element in your application using the native disabled attribute whilst ajax data calls are in transit",
   "repository": {
     "type": "git",
@@ -14,8 +14,8 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^13.3.0",
-    "@angular/core": "^13.3.0"
+    "@angular/common": ">=6.0.0",
+    "@angular/core": ">=6.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
