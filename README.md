@@ -1,12 +1,13 @@
 # ngx-disable-during-ajax
 
-This is a library to disable any element in your application using the native disabled attribute whilst ajax data calls are in transit.
+This is an accessible library to style any element in your application (illustrating that it is unavailable) whilst ajax data calls are in transit.
+We achieve this by applying a css class name and we avoid using the 'disabled' attribute altogether.
 
 Stackblitz Example = https://stackblitz.com/edit/angular-ivy-fmn28n
 
 ## Description
 
-Sometimes we may want to disable buttons (or other elements) in our application whilst ajax calls are in transit. For example the user may have filled out an order form and we wish to prevent them from accidentally pressing the submit button twice. This library listens for all the incoming and outgoing requests and re-enables the button once all ajax calls have completed.
+Sometimes we may want to illustrate that buttons (or other elements) are unavailable in our application whilst ajax calls are in transit. For example the user may have filled out an order form and we wish to prevent them from accidentally pressing the submit button twice. This library listens for all the incoming and outgoing requests and adds / removes a css class where necessary.
 
 ## Get Started
 
@@ -42,9 +43,22 @@ import { DisableDuringAjaxModule } from 'ngx-disable-during-ajax';
 export class AppModule { }
 ```
 
+## Styling
+
+*Step 3*: In your global stylesheet, style the provided `ngx-disable-during-ajax-disabled` class name, eg:
+
+```css
+.ngx-disable-during-ajax-disabled{
+    pointer-events: none;
+    opacity: 0.5;
+}
+```
+
+Please note in this library we don't use the disabled attribute since this isn't accessible for screenreaders. By providing a class name that you can style yourself gives you greater flexibility as to how those 'disabled' elements should look and behave.
+
 ## Usage
 
-*Step 3*: Place directive on buttons you wish to disable when ajax calls are made
+*Step 4*: Place directive on buttons you wish to disable when ajax calls are made
 
 ```bash
 <button type="button" ngx-disable-during-ajax>My button</button>
@@ -56,7 +70,9 @@ Should you have buttons which are included in a form and need validation to be c
 <button type="button" ngx-disable-during-ajax [formValid]="myForm">My button</button>
 ```
 
-You may have a situation where you want your button to be disabled for all ajax calls with the exception of a few. In this case, simply add a `"NgxDisableDuringAjaxSkip", "true"`, header to those http.service calls.
+## Skipping certain api calls from disabling elements
+
+You may have a situation where you want your button to be 'disabled' for all ajax calls with the exception of a few. For example you may have to call a 'new messages' api every 10 seconds which would affect the user's experience if buttons were going in and out of a 'disabled' state every 10 seconds. In this case, simply add a `"NgxDisableDuringAjaxSkip", "true"`, header to those http.service calls.
 
 ```bash
 getWaterPokemon(): Observable<any[]> {

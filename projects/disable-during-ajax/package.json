@@ -1,7 +1,7 @@
 {
   "name": "ngx-disable-during-ajax",
-  "version": "0.0.6",
-  "description": "This is a library to disable any element in your application using the native disabled attribute whilst ajax data calls are in transit",
+  "version": "0.0.7",
+  "description": "This is a library to 'disable' any element in your application using a specified css class whilst ajax data calls are in transit",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fitness23/ngx-disable-during-ajax-workspace.git"

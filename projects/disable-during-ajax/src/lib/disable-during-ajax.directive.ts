@@ -23,7 +23,7 @@ export class DisableDuringAjaxDirective implements OnDestroy, OnInit {
             this.checkAjaxProgress();
         }
         if ((form.valid === false)) {
-            this.el.nativeElement.setAttribute('disabled', 'true');
+            this.el.nativeElement.classList.add("ngx-disable-during-ajax-disabled");
         }
     }
 
@@ -35,17 +35,17 @@ export class DisableDuringAjaxDirective implements OnDestroy, OnInit {
             response => {
 
                 if ((response === true)) {
-                    this.el.nativeElement.setAttribute('disabled', 'true');
+                    this.el.nativeElement.classList.add("ngx-disable-during-ajax-disabled");
                 }
 
                 if ((response === false)) {
-                    this.el.nativeElement.removeAttribute('disabled');
+                    this.el.nativeElement.classList.remove("ngx-disable-during-ajax-disabled");
                 }
 
                 // Check form one more time
                 if ((this.formValid != null)) {
                     if ((this.formValid.valid === false)) {
-                        this.el.nativeElement.setAttribute('disabled', 'true');
+                        this.el.nativeElement.classList.add("ngx-disable-during-ajax-disabled");
                     }
                 }
 
