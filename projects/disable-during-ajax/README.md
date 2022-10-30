@@ -61,13 +61,13 @@ Please note in this library we don't use the disabled attribute since this isn't
 *Step 4*: Place directive on buttons you wish to disable when ajax calls are made
 
 ```bash
-<button type="button" ngx-disable-during-ajax>My button</button>
+<button type="button" [ngxDisableDuringAjax]>My button</button>
 ```
 
-Should you have buttons which are included in a form and need validation to be considered add the `[formValid]` tag and send the instance of the form.
+Should you have buttons which are included in a form and need validation to be considered include the form name as a parameter to the tag.
 
 ```bash
-<button type="button" ngx-disable-during-ajax [formValid]="myForm">My button</button>
+<button type="button" [ngxDisableDuringAjax]="myForm">My button</button>
 ```
 
 ## Skipping certain api calls from disabling elements

@@ -1,28 +1,27 @@
 import { OnDestroy, OnInit, Directive, ElementRef, Input, SimpleChanges } from '@angular/core';
 import { DisableDuringAjaxService } from './disable-during-ajax.service';
 import { Subscription, Subject, takeUntil } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 
 @Directive({
-    selector: '[ngx-disable-during-ajax]'
+    selector: '[ngxDisableDuringAjax]'
 })
 
 export class DisableDuringAjaxDirective implements OnDestroy, OnInit {
 
     private ngUnsubscribe: Subject<any> = new Subject();
-
-    @Input() formValid: any;
-    
-    subscription: Subscription | undefined;
+    @Input('ngxDisableDuringAjax') formInstance?: FormGroup;
+    subscription!: Subscription;
 
     constructor(private _busyService: DisableDuringAjaxService, private el: ElementRef) {}
 
 
-    checkFormValidation(form: any)
+    checkFormValidation()
     {
-        if ((form.valid === true)) {
+        if ((this.formInstance!.valid === true)) {
             this.checkAjaxProgress();
         }
-        if ((form.valid === false)) {
+        if ((this.formInstance!.valid === false)) {
             this.el.nativeElement.classList.add("ngx-disable-during-ajax-disabled");
         }
     }
@@ -43,8 +42,8 @@ export class DisableDuringAjaxDirective implements OnDestroy, OnInit {
                 }
 
                 // Check form one more time
-                if ((this.formValid != null)) {
-                    if ((this.formValid.valid === false)) {
+                if ((this.formInstance != null)) {
+                    if ((this.formInstance.valid === false)) {
                         this.el.nativeElement.classList.add("ngx-disable-during-ajax-disabled");
                     }
                 }
@@ -56,13 +55,13 @@ export class DisableDuringAjaxDirective implements OnDestroy, OnInit {
     doChecks()
     {
         // If there is no form to check validation then just check the ajax progress
-        if ((this.formValid == null)) {
+        if ((this.formInstance == null)) {
             this.checkAjaxProgress();
         }
         // Else check the forms validation AND ajax progress
         else {
-            this.checkFormValidation(this.formValid);
-            this.formValid.valueChanges.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data: any) => this.checkFormValidation(this.formValid));
+            this.checkFormValidation();
+            this.formInstance.valueChanges.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data: any) => this.checkFormValidation());
         }
     }
 

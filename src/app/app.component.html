@@ -1,7 +1,7 @@
 <p>
   Press the button below to start an async call. You'll see it becoming disabled during async call data transfer:
 </p>
-<button type="button" ngx-disable-during-ajax (click)="getWaterPokemon()">Press me for async call</button>
+<button type="button" [ngxDisableDuringAjax] (click)="getWaterPokemon()">Press me for async call</button>
 
 
 
@@ -19,6 +19,10 @@
 <hr />
 
 <div style="margin-top: 40px;">
-  <p>This button will also get disabled regardless on whether it belongs to a particular form or not. Just so long as it has the 'disableDuringAjax' directive.</p>
-<button type="button" ngx-disable-during-ajax>This button is irrelevant</button>
+  <p>This button is part of a form where the first name is required. We want to disable the button until the field is complete.</p>
+  <form [formGroup]="myForm" novalidate>
+    <label for="name">Name</label>
+    <input id="name" type="text" formControlName="name">
+    <button type="button" [ngxDisableDuringAjax]="myForm">This button is linked to a form</button>
+  </form>
 </div>

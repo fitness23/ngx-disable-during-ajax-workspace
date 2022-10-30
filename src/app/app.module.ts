@@ -4,7 +4,7 @@ import { DisableDuringAjaxModule } from 'disable-during-ajax';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from "./http.service";
 
 @NgModule({
@@ -15,7 +15,8 @@ import { HttpService } from "./http.service";
     BrowserModule,
     HttpClientModule,
     DisableDuringAjaxModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]
