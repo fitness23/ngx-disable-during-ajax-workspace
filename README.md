@@ -34,7 +34,7 @@ import { DisableDuringAjaxModule } from 'ngx-disable-during-ajax';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    DisableDuringAjaxModule,
+    DisableDuringAjaxModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

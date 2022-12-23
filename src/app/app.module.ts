@@ -14,7 +14,7 @@ import { HttpService } from "./http.service";
   imports: [
     BrowserModule,
     HttpClientModule,
-    DisableDuringAjaxModule,
+    DisableDuringAjaxModule.forRoot(),
     FormsModule,
     ReactiveFormsModule
   ],

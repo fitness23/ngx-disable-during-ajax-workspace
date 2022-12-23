@@ -1,6 +1,6 @@
 {
   "name": "ngx-disable-during-ajax",
-  "version": "0.0.9",
+  "version": "1.0.2",
   "description": "This is a library to 'disable' any element in your application using a specified css class whilst ajax data calls are in transit",
   "repository": {
     "type": "git",
